@@ -30,18 +30,13 @@ public class OpenJobManager implements OpenJobService {
 
 	@Override
 	public Result save(OpenJob openJob) {
-		List<OpenJob> jobs = this.getAll();
-		if (openJob.getName().length() == 0) {
-			return new ErrorResult("İş pozisyonu boş olamaz.");
-		}
-
-		for (OpenJob job : jobs) {
-			if (job.getName().equals(openJob.getName())) {
-				return new ErrorResult("Girdiğiniz iş pozisyonu zaten mevcut.");
-			}
+		String jobName = openJob.getName();
+		OpenJob o = this.openJobDao.getByName(jobName);
+		if (o != null) {
+			return new ErrorResult("Böyle bir kullanıcı tipi zaten var.");
 		}
 		this.openJobDao.save(openJob);
-		return new SuccessResult("İş pozisyonu başarıyla eklendi.");
+		return new SuccessResult("İş pozisyonu kaydedildi.");
 	}
 
 }

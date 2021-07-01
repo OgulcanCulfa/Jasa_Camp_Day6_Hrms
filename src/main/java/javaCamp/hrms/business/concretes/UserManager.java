@@ -38,13 +38,12 @@ public class UserManager implements UserService {
 	public Result save(User user) {;
 		String email = user.getEmail();
 		String tcNo = user.getTcNo();
-		User u = this.userDao.getByEmailOrTcNo(email, tcNo);
+		User u = this.userDao.findByEmailOrTcNo(email, tcNo);
 		if (u != null) {
 			return new ErrorResult("Bu kullanıcı zaten kayıtlı.");
 		}
 		
 		this.userDao.save(user);
-		System.out.println("worked");
 		return new SuccessResult("Kullanıcı eklendi.");
 	}
 

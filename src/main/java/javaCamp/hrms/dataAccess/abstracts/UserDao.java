@@ -8,5 +8,5 @@ import javaCamp.hrms.entities.concretes.User;
 
 public interface UserDao extends JpaRepository<User, Integer> {
 	List<User> getByUserType_id(int userTypeId);
-	User getByEmailOrTcNo(String email,String tcNo);
+	User findByEmailOrTcNo(String email,String tcNo);
 }
